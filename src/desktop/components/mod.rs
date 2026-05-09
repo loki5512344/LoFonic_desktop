@@ -1,4 +1,4 @@
-use egui::{Button, RichText, SidePanel, TopBottomPanel, Ui};
+use egui::{Button, Panel, RichText, Ui};
 
 use crate::desktop::{
     screens::Screen,
@@ -7,11 +7,11 @@ use crate::desktop::{
     widgets::{audio_metadata_strip, waveform_placeholder},
 };
 
-pub fn sidebar(ctx: &egui::Context, app_state: &mut AppState, palette: ThemePalette) {
-    SidePanel::left("sidebar")
-        .min_width(220.0)
-        .max_width(260.0)
-        .show(ctx, |ui| {
+pub fn sidebar(ui: &mut Ui, app_state: &mut AppState, palette: ThemePalette) {
+    Panel::left("sidebar")
+        .min_size(220.0)
+        .max_size(260.0)
+        .show_inside(ui, |ui| {
             ui.heading(RichText::new("LoFonic").color(palette.accent));
             ui.add_space(8.0);
             for screen in Screen::ALL {
@@ -30,11 +30,11 @@ pub fn sidebar(ctx: &egui::Context, app_state: &mut AppState, palette: ThemePale
         });
 }
 
-pub fn right_queue_panel(ctx: &egui::Context, app_state: &mut AppState, palette: ThemePalette) {
-    SidePanel::right("queue")
-        .default_width(280.0)
+pub fn right_queue_panel(ui: &mut Ui, app_state: &mut AppState, palette: ThemePalette) {
+    Panel::right("queue")
+        .default_size(280.0)
         .resizable(true)
-        .show(ctx, |ui| {
+        .show_inside(ui, |ui| {
             ui.heading(RichText::new("Queue").color(palette.accent_soft));
             ui.horizontal(|ui| {
                 ui.checkbox(&mut app_state.queue.repeat, "Repeat");
@@ -54,8 +54,8 @@ pub fn right_queue_panel(ctx: &egui::Context, app_state: &mut AppState, palette:
         });
 }
 
-pub fn bottom_playback_bar(ctx: &egui::Context, app_state: &mut AppState, palette: ThemePalette) {
-    TopBottomPanel::bottom("playback_bar").show(ctx, |ui| {
+pub fn bottom_playback_bar(ui: &mut Ui, app_state: &mut AppState, palette: ThemePalette) {
+    Panel::bottom("playback_bar").show_inside(ui, |ui| {
         ui.add_space(4.0);
         ui.horizontal(|ui| {
             let has_current = app_state.queue.current.is_some();

@@ -23,14 +23,14 @@ impl Default for LoFonicDesktopApp {
 }
 
 impl eframe::App for LoFonicDesktopApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        apply_theme(ctx, self.palette);
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+        apply_theme(ui.ctx(), self.palette);
 
-        sidebar(ctx, &mut self.state, self.palette);
-        right_queue_panel(ctx, &mut self.state, self.palette);
-        bottom_playback_bar(ctx, &mut self.state, self.palette);
+        sidebar(ui, &mut self.state, self.palette);
+        right_queue_panel(ui, &mut self.state, self.palette);
+        bottom_playback_bar(ui, &mut self.state, self.palette);
 
-        CentralPanel::default().show(ctx, |ui| {
+        CentralPanel::default().show_inside(ui, |ui| {
             render_screen(ui, &mut self.state, self.palette);
         });
     }

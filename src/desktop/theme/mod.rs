@@ -26,7 +26,7 @@ impl Default for ThemePalette {
 }
 
 pub fn apply_theme(ctx: &Context, palette: ThemePalette) {
-    let mut style: Style = (*ctx.style()).clone();
+    let mut style: Style = (*ctx.global_style()).clone();
     style.visuals = Visuals::dark();
     style.visuals.panel_fill = palette.bg_panel;
     style.visuals.faint_bg_color = palette.bg_main;
@@ -45,5 +45,5 @@ pub fn apply_theme(ctx: &Context, palette: ThemePalette) {
     // Keep defaults but prepare for font extension.
     let fonts = FontDefinitions::default();
     ctx.set_fonts(fonts);
-    ctx.set_style(style);
+    ctx.set_global_style(style);
 }

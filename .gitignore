@@ -1,4 +1,12 @@
 /target
+**/*.rs.bk
+*.log
+
+# IDE/editor
 /.idea
 /.vscode
-*.log
+/.cursor
+
+# OS files
+.DS_Store
+Thumbs.db
